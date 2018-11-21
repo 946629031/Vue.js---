@@ -10,9 +10,9 @@
 <body>
 
     <div id="app">
-        <row ref='hello1'></row>
-        <row ref='hello2'></row>
-        <button ref='hello' @click='alert2'>求和</button>
+        <row ref='hello1' @change='handleChange'></row>
+        <row ref='hello2' @change='handleChange'></row>
+        <!-- <button ref='hello' @click='alert2'>求和</button> -->
         <div>总和：{{count}}</div>
     </div>
 
@@ -27,6 +27,7 @@
             methods: {
                 count: function(){
                     this.number++
+                    this.$emit('change')
                 }
             }
         });
@@ -37,7 +38,7 @@
                 count: 0
             },
             methods: {
-                alert2: function(){
+                handleChange: function(){
                     console.log(this.$refs.hello1.number)
                     console.log(this.$refs.hello2)
                     this.count = this.$refs.hello1.number + this.$refs.hello2.number
