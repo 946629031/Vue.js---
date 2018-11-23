@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-4-1 给组件绑定原生事件</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    <div id="app2">
+            .native 方法给组件绑定原生事件
+        <child @click.native='handlClick'></child>
+        <!-- <child @click='handlClick'></child>   绑定自定义事件 -->
+    </div>
+
+    <script>
+        Vue.component('child', {
+            template: '<button>点我</button>'
+        })
+
+        var vm = new Vue({
+            el: '#app2',
+            data: {
+                msg: 'dddddzx'
+            },
+            methods: {
+                handlClick: function(){
+                    alert(22232)
+                }
+            }
+        })
+    </script>
+
+
+
+    <div id="app">
+            .$emit 子组件向上触发方法
+            <child @click='handlClick'></child>
+        </div>
+    
+        <script>
+            Vue.component('child', {
+                template: '<button @click="childClick">点我</button>',   // 对div元素进行事件绑定，这里是原生事件绑定
+                methods: {
+                    childClick: function(){
+                        this.$emit('click')
+                    }
+                }
+            })
+    
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: 'dddddzx'
+                },
+                methods: {
+                    handlClick: function(){
+                        alert('this is from child component msg')
+                    }
+                }
+            })
+        </script>
+</body>
+</html>

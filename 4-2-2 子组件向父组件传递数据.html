@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-2-1 父组件向子组件传递数据</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    <div id="vm">
+        <counter :number='1' @change='totalHandle' ref='cou1'></counter>
+        <counter :number='2' @change='totalHandle' ref='cou2'></counter>
+        <counter :number='3' @change='totalHandle' ref='cou3'></counter>
+        <div>总和：{{total}}</div>
+    </div>
+
+    <script>
+
+        // 总结：
+        // 父组件通过属性的方式，向子组件传值
+        // 子组件通过事件触发的方式，向父组件传值
+
+        // 父子组件传值时候的隐性规定：单向数据流
+        // 父组件可以向子组件传递任何数据，但是子组件不能修改父组件传递过来的数据
+        // 如果非要修改，则先拷贝一份数据副本，在修改数据副本
+
+        var counter = {
+            props: ['number'],
+            data: function(){
+                return {
+                    counts: this.number     // 将父组件传过来的参数，复制一份，然后在组件内 再对其修改
+                }
+            },
+            template: '<div @click="counterClickHandle">{{counts}}</div>',
+            methods: {
+                counterClickHandle: function(){
+                    this.counts++
+                    this.$emit('change')        // 触发当前实例上的事件。附加参数都会传给监听器回调
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: '#vm',
+            data: {
+                total: 0
+            },
+            components: {
+                counter: counter
+            },
+            methods:{
+                totalHandle: function(){
+                    this.total = this.$refs.cou1.counts + this.$refs.cou2.counts + this.$refs.cou3.counts
+                }
+            },
+            mounted: function() {
+                this.total = this.$refs.cou1.counts + this.$refs.cou2.counts + this.$refs.cou3.counts
+            }
+        })
+    </script>
+</body>
+</html>

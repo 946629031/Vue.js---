@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-3 组件参数校验与非props特性</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+    <div id="app">
+        <child content='111'></child>       传递字符串
+        <child :content='111'></child>      传递数字
+        <child :content='"111"'></child>    传递字符串
+        <child :content='{"xx":"123"}'></child>     传递对象    <br>
+        :content='111'  v-bind:content  这种方式传递参数，引号内的内容 当作js语句
+    </div>
+
+    <script>
+        Vue.component('child', {
+            props: {
+                content: [String, Number],
+
+                propMsg: null,   // null表示不验证类别
+                propA: Number,
+                propB: [String, Number],
+                propC: {
+                    type: String,
+                    required: true  // 必填的字符串
+                },
+                propD: {
+                    type: Number,
+                    default: 100    // 默认值
+                },
+                propE: {
+                    type: Object,           // 带有默认的对象
+                    default: function(){    // 对象或数组的默认值必须从一个函数 return
+                        return { message: 'hello' }
+                    }
+                },
+                propF: {
+                    validator: function(value){     // 自定义校验函数
+                        return ['success','warning','danger'].indexOf(value) !== -1     // 这个值必须是这三个中的一个
+                    }
+                }
+            },
+            template: '<div>{{content}}</div>'
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '21212112'
+            }
+        })
+    </script>
+    
+</body>
+</html>
