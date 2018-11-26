@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-6-1 存在的问题： Vue中的插槽（slot）</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    <div id="app">
+        <child :content='"<p>Dell<p>"'></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            props: ['content'],
+            template: '<div><p>hello</p>{{content}}</div>'
+        })
+
+        var app = new Vue({
+            el: '#app'
+        })
+    </script>
+    
+    <xmp>
+    这里通过 :content='"<p>Dell<p>"' 或者 content='<p>Dell<p>' 的方式向子组件的模板传一个标签内容，
+    会被直接输出为 "<p>Dell<p>"
+    </xmp>
+    
+
+
+
+
+
+
+    <hr>
+
+    <div id="app2">
+        <child :content='"<p>Dell<p>"'></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            props: ['content'],
+            template: `<div>
+                            <p>hello</p>
+                            <div v-html="this.content"></div>
+                        </div>`
+        })
+
+        var app2 = new Vue({
+            el: '#app2'
+        })
+    </script>
+
+    <xmp>
+        这里通过 v-html="this.content" ，这种方式可以编译传入的 html 标签
+        但是最外层却得多写一个<div>，
+
+        那么，有没有一个方法，既可以不用多写一层 <div> ，又可以编译传入的 html 标签呢？
+    </xmp>
+
+
+
+
+
+    <hr>
+    <div id="app3">
+            <child :content='"<p>Dell<p>"'></child>
+        </div>
+    
+        <script>
+            Vue.component('child', {
+                props: ['content'],
+                template: `<div>
+                                <p>hello</p>
+                                <template v-html="this.content"></template>
+                            </div>`
+            })
+    
+            var app3 = new Vue({
+                el: '#app3'
+            })
+        </script>
+    
+        <xmp>
+            有人说可以用模板占位符 <template>，
+            但是这里使用模板占位符后，内容却没法显示了
+        </xmp>
+
+</body>
+</html>

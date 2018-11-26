@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-6-2 Vue中的插槽（slot）</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+    <div id="app">
+        <child>
+            <h1>Dell</h1>
+        </child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            template: `<div>
+                            <p>hello</p>
+                            <slot></slot>
+                       </div>`
+        })
+
+        var vm = new Vue({
+            el: '#app'
+        })
+    </script>
+    
+
+    --------------------------------------------------------------
+
+    <div id="app2">
+            <child></child>
+        </div>
+    
+        <script>
+            Vue.component('child', {
+                template: `<div>
+                                <p>hello</p>
+                                <slot>默认内容</slot>
+                           </div>`
+            })
+    
+            var vm = new Vue({
+                el: '#app2'
+            })
+        </script>
+
+
+
+--------------------------------------------------------------
+
+    <div id="app3">
+        句名插槽 slot="header" 
+        name='footer'
+        <body-content>
+            <div class="header" slot="header">header</div>
+            <div class="footer" slot="footer">footer</div>
+        </body-content>
+    </div>
+
+    <script>
+        Vue.component('body-content', {
+            template: `<div>
+                            <slot name='header'></slot>
+                            <p>hello</p>
+                            <slot name='footer'>默认内容</slot>
+                       </div>`
+        })
+
+        var vm = new Vue({
+            el: '#app3'
+        })
+    </script>
+</body>
+</html>
