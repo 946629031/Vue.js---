@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-7-1 Vue - 使用作用域插槽 (Scoped Slots) 分割元件版面</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    <template id="content">
+        <main>
+            <h1>浏览器</h1>
+            <p>文字摘要介绍</p>
+            <slot name='slot-content' :item='val' v-for='val in artlist'></slot>
+        </main>
+    </template>
+
+    <template id="container">
+        <div class="container">
+            <header>
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                </ul>
+            </header>
+            <c-content>
+                <template scope='props' slot='slot-content'>
+                    <article>
+                        <h1>{{ props.item.title }}</h1>
+                        <p>{{ props.item.description }}</p>
+                        <p>------------------------------------------</p>
+                    </article>
+                </template>
+            </c-content>
+        </div>
+    </template>
+    
+    <div id="app">
+        <c-container></c-container>
+    </div>
+
+    <script>
+        Vue.component('c-content',{
+            template: '#content',
+            data: function(){
+                // AJAX DATA...
+                return {
+                    artlist: [
+                        {title: 'Chrome', description: 'Chrome的描述文字'},
+                        {title: 'IE', description: 'IE的描述文字'},
+                        {title: 'Firefox', description: 'Firefox的描述文字'}
+                    ]
+                }
+            }
+        })
+
+        Vue.component('c-container', {
+            template: '#container'
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'daadad'
+            }
+        })
+    </script>
+
+
+    <a href="https://youtu.be/ifPcnecWq9I">https://youtu.be/ifPcnecWq9I</a>
+
+</body>
+</html>

@@ -23,7 +23,7 @@
                        </div>`
         })
 
-        var vm = new Vue({
+        var vm1 = new Vue({
             el: '#app'
         })
     </script>
@@ -32,28 +32,29 @@
     --------------------------------------------------------------
 
     <div id="app2">
-            <child></child>
-        </div>
-    
-        <script>
-            Vue.component('child', {
-                template: `<div>
-                                <p>hello</p>
-                                <slot>默认内容</slot>
-                           </div>`
-            })
-    
-            var vm = new Vue({
-                el: '#app2'
-            })
-        </script>
+        <child></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            template: `<div>
+                            <p>hello</p>
+                            <slot>默认内容</slot>
+                        </div>`
+        })
+
+        var vm2 = new Vue({
+            el: '#app2'
+        })
+    </script>
 
 
 
 --------------------------------------------------------------
 
     <div id="app3">
-        句名插槽 slot="header" 
+        <h1>具名插槽 </h1>
+        slot="header" 
         name='footer'
         <body-content>
             <div class="header" slot="header">header</div>
@@ -70,8 +71,50 @@
                        </div>`
         })
 
-        var vm = new Vue({
+        var vm3 = new Vue({
             el: '#app3'
+        })
+    </script>
+
+--------------------------------------------------------------
+
+    <div id="app4">
+        <child>
+            <template slot='header'>
+                <h1>Here might be a page title.</h1>
+            </template>
+
+            <template slot='main'>
+                <p>A paragraph of the main content.</p>
+                <p>And another one.</p>
+            </template>
+
+            <template slot='footer'>
+                <h6>Here`s some contact info.</h6>
+            </template>
+            
+            <div>xxxx</div>
+            <!-- <slot></slot> -->
+        </child>
+    </div>
+    <script>
+        Vue.component('child',{
+            template: `<div>
+                            <header>
+                                <slot name='header'></slot>
+                            </header>
+                            <main>
+                                <slot name='main'></slot>
+                            </main>
+                            <footer>
+                                <slot name='footer'></slot>
+                            </footer>
+                            <slot></slot>
+                       </div>`
+        })
+
+        var vm4 = new Vue({
+            el: '#app4'
         })
     </script>
 </body>

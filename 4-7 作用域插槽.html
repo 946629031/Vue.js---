@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-7 作用域插槽</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+    <div id="app">
+        <child></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            data: function(){
+                return {
+                    list: [1, 2, 3, 4]
+                }
+            },
+            template: `<div>
+                            <ul>
+                                <li v-for='item of list'>{{item}}</li>
+                            </ul>
+                       </div>`
+        })
+
+        var vm = new Vue({
+            el: '#app'
+        })
+    </script>
+
+    <xmp>
+        那么现在有一个需求：
+        这个 child 组件有可能被很多不同的地方调用，
+        那么，这个列表内的 子项 和 样式 不是child组件所控制的，
+        而是外部组件告诉child组件，该如何渲染
+    </xmp>
+    
+    -----------------------------------------------------------------------------
+
+
+    <div id="app2">
+        <child>
+            <!-- 将 `props` 定义为插槽作用域的名字 -->
+            <template slot-scope='props'>
+                <li>{{props.item}}</li>
+            </template>
+        </child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            data: function(){
+                return {
+                    list: [1, 2, 3, 4]
+                }
+            },
+            template: `<div>
+                            <ul>
+                                <slot
+                                    v-for='itemss of list'
+                                    :item=itemss
+                                ></slot>
+                            </ul>
+                        </div>`
+        })
+
+        var vm2 = new Vue({
+            el: '#app2'
+        })
+    </script>
+
+    
+    -----------------------------------------------------------------------------
+
+    <div id="app3">
+        <child></child>
+    </div>
+
+    <script>
+        Vue.component('son', {
+            template: `<main>
+                            <h1>浏览器</h1>
+                            <p>文字摘要介绍</p>
+                            <slot name='slot-content' :item='val' v-for='val of artlist'></slot>
+                        </main>`,
+            data: function(){
+                // AJAX DATA...
+                return {
+                    artlist: [
+                        {title: 'Chrome', description: 'Chrome的描述文字'},
+                        {title: 'IE', description: 'IE的描述文字'},
+                        {title: 'Firefox', description: 'Firefox的描述文字'}
+                    ]
+                }
+            }
+        })
+
+        Vue.component('child', {
+            data: function(){
+                return {
+                    list: [1, 2, 3, 4]
+                }
+            },
+            template: `
+                        <div class="container">
+                            <header>
+                                <ul>
+                                    <li>Home</li>
+                                    <li>About</li>
+                                </ul>
+                            </header>
+                            <son>
+                                <template slot-scope='props' slot='slot-content'>
+                                    <article>
+                                        <h1>{{ props.item.title }}</h1>
+                                        <p>{{ props.item.description }}</p>
+                                    </article>
+                                </template>
+                            </son>
+                        </div>`
+        })
+
+        var vm3 = new Vue({
+            el: '#app3'
+        })
+    </script>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>什么是作用域插槽？？？</h1>
+    <p>2018年11月27日 16:47:31</p>
+</body>
+</html>
