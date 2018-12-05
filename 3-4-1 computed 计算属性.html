@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-4-1 计算属性</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+    <div id="app">
+        {{fullName}}
+        {{age}}
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'Dell',
+                lastName: 'Lee',
+                age: 28
+            },
+            // 计算属性
+            // 计算属性有一个非常重要的特性：内置缓存
+            // 如果 fullName 所依赖的firstName和lastName并没有发生改变，则fullName并不会重新计算
+            // 只有计算属性所依赖的属性发生了变化，该计算属性才会重新计算
+            computed: {
+                fullName: function(){
+                    console.log('计算了一次');
+                    return this.firstName + ' ' + this.lastName
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

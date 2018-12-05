@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-4-3 watch 监听器</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js'></script>
+</head>
+<body>
+
+    <div id="app">
+        {{fullName}}
+        {{age}}
+    </div>
+    
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'Dell',
+                lastName: 'Lee',
+                fullName: 'Dell Lee',
+                age: 28
+            },
+            // watch 监听器
+            // watch方法跟computed方法很类似，都有缓存，
+            // 只要所依赖的属性不发生变化，则watch属性就不会被重新计算
+            // 但是，watch方法没有computed方法简洁
+            // 总结： 如果一个需求既可以用computed实现，又可以用methods实现，还可以用watch实现，那么优先用computed方法
+            watch: {
+                firstName: function(){
+                    console.log('计算了一次');
+                    this.fullName = this.firstName + ' ' + this.lastName
+                },
+                lastName: function(){
+                    console.log('计算了一次');
+                    this.fullName = this.firstName + ' ' + this.lastName
+                }
+            }
+        })
+    </script>
+</body>
+</html>
