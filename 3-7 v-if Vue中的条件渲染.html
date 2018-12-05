@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-7 v-if Vue中的条件渲染</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    <h2>3-7 v-if Vue中的条件渲染</h2>
+
+
+--------------------------------------------
+    v-if 和 v-show 的异同
+
+    <div id="app">
+        <div v-if='show'>v-if: {{msg}}</div>
+        <div v-show='show'>v-show: {{msg}}</div>
+        <button @click='clickHandle'>修改show</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                msg: 'hello world'
+            },
+            methods: {
+                clickHandle: function(){
+                    this.show = !this.show
+                }
+            }
+        })
+        // 总结：v-if 和 v-show 都可以控制内容的显示与隐藏，
+        // 但是，v-if 是增删 DOM 节点的，
+        // 而 v-show 是控制 display:none 和 display:block 的
+        // 相比而言 v-show 性能更高
+    </script>
+
+
+--------------------------------------------
+    v-if v-else-if v-else
+
+    <div id="app2">
+        <div v-if='showAll ==="a"'>This is A</div>
+        <div v-else-if='showAll ==="b"'>This is B</div>
+        <div v-else>This is other</div>
+        <button @click='setA'>setA</button>
+        <button @click='setB'>setB</button>
+        <button @click='setOther'>setOther</button>
+    </div>
+    <script>
+        var vm2 = new Vue({
+            el: '#app2',
+            data: {
+                showAll: 'a'
+            },
+            methods: {
+                setA: function(){
+                    this.showAll = 'a'
+                },
+                setB: function(){
+                    this.showAll = 'b'
+                },
+                setOther: function(){
+                    this.showAll = 'other'
+                },
+            }
+        })
+    </script>
+
+
+--------------------------------------------<br>
+    <xpm>
+    key值的使用
+    总结：默认情况下vue为了提高性能，会尽可能的去复用DOM中的元素
+    在这案例里，如果不加key值的话，input会被复用，
+    如果不希望出现这种情况，请使用key值，key值内容可任意取名，只是作为唯一识别的标志而已，类似于ID
+    </xpm>
+    <br><br>
+
+    <div id="app3">
+        <div v-if='show2'>
+            用户名： <input key='userName'>
+        </div>
+        <div v-else='show2'>
+            邮箱名： <input key='email'>
+        </div>
+    </div>
+    <script>
+        var vm3 = new Vue({
+            el: '#app3',
+            data: {
+                show2: true
+            }
+        })
+    </script>
+
+
+</body>
+</html>

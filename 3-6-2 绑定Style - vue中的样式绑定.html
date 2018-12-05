@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-6-2 绑定Style - vue中的样式绑定</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    <h2>绑定style内联样式</h2>
+    
+    <!-- ======================= 方法1： style的对象绑定 ======================= -->
+    <div id="app">
+        <div :style='styleObject' @click='changeColor'>绑定内联样式</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                styleObject: {
+                    color: 'red'
+                }
+            },
+            methods: {
+                changeColor: function(){
+                    this.styleObject.color = this.styleObject.color === 'red' ? 'black' : 'red'
+                }
+            }
+        });
+    </script>
+    <!-- ======================= 方法1： style的对象绑定 ======================= -->
+
+
+
+    
+    <!-- ======================= 方法2： style的数组绑定 ======================= -->
+    <div id="app2">
+        <div :style='[styleObject2, fontBlod]'>方法2： style的数组绑定 可绑定多个</div>
+    </div>
+    <script>
+        var vm2 = new Vue({
+            el: '#app2',
+            data: {
+                styleObject2: {
+                    color: 'pink'
+                },
+                fontBlod: {
+                    'font-weight': 'bold'
+                }
+            }
+        })
+    </script>
+    <!-- ======================= 方法2： style的数组绑定 ======================= -->
+    
+</body>
+</html>

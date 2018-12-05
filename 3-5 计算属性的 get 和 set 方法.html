@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-5 计算属性的 get 和 set 方法</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+    <div id="app">
+        {{fullName}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'Dell',
+                lastName: 'Lee'
+            },
+            computed: {
+                fullName: {
+                    // get 方法：当差值表达式{{fullName}}去读取fullName时候，调用的就是get方法
+                    get: function(){
+                        console.log('get方法执行了一次')
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // set方法：当设置fullName这个值的时候，set会被执行，即在控制台里执行 vm.fullName = 'Mike wang' 时
+                    // 总结：当调用set方法时，set方法和get方法均被调用一次
+                    set: function(value){
+                        var arr = value.split(' ');
+                        this.firstName = arr[0];
+                        this.lastName = arr[1];
+                        console.log('set方法执行了一次')
+                    }
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

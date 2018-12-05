@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-6-1 绑定Class - vue中的样式绑定</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    <h2>3-6-1 绑定Class - vue中的样式绑定</h2>
+
+    <!-- ======================= 方法1： class的对象绑定 ======================= -->
+    <!-- 需求：实现点击文字改变字体样式，通过 class的对象绑定 实现 -->
+    <div id="app">
+        <div @click='clickHandle' :class="{ active: isActive }">方法1： class的对象绑定</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isActive: false
+            },
+            methods: {
+                clickHandle: function(){
+                    this.isActive = !this.isActive
+                }
+            }
+        })
+    </script>
+    <style>
+        .active{ color:red; }
+    </style>
+    <!-- ======================= 方法1： class的对象绑定 ======================= -->
+
+
+
+    <!-- ======================= 方法2： class的数组绑定 ======================= -->
+    <div id="app2">
+        <div :class='[ activated, blod ]' @click='clickHandle2'>方法2： class的数组绑定</div>
+    </div>
+    <script>
+        var vm2 = new Vue({
+            el: '#app2',
+            data: {
+                activated: '',
+                blod: 'blod'
+            },
+            methods: {
+                clickHandle2: function(){
+                    // if( this.activated ==='' ){
+                    //     this.activated = 'activated'
+                    // }else{
+                    //     this.activated = ''
+                    // }
+                    this.activated = this.activated === '' ? 'activated' : ''
+                    this.blod = this.blod === '' ? 'blod' : ''
+                }
+            }
+        })
+    </script>
+    <style>
+        .activated{ color:red; }
+        .blod{ font-weight: bold; }
+    </style>
+    <!-- ======================= 方法2： class的数组绑定 ======================= -->
+
+
+
+
+    <!-- ======================= 方法3： class的对象绑定  绑定的数据对象不必内联定义在模板里 ======================= -->
+    <div id="app3">
+        <div :class='classObject' @click='clickHandle3'>方法3： class的对象绑定  绑定的数据对象不必内联定义在模板里</div>
+    </div>
+    <script>
+        var vm3 = new Vue({
+            el: '#app3',
+            data: {
+                classObject:{
+                    redColor: true,
+                    active: false
+                }
+            },
+            methods: {
+                clickHandle3: function(){
+                    this.classObject.active = !this.classObject.active
+                }
+            }
+        })
+    </script>
+    <!-- ======================= 方法3： class的对象绑定  绑定的数据对象不必内联定义在模板里 ======================= -->
+
+
+
+
+    <!-- ======================= 方法4： 绑定一个返回对象的计算属性。这是一个常用且强大的模式 ======================= -->
+    <div id="app4">
+        <div :class="classObject2">方法4： 绑定一个返回对象的计算属性。这是一个常用且强大的模式</div>
+    </div>
+    <script>
+        var vm4 = new Vue({
+            el: '#app4',
+            data: {
+                isActive: true,
+                error: null
+            },
+            computed: {
+                classObject2: function(){
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal',
+                        'blod': 'blod'
+                    }
+                }
+            }
+        })
+    </script>
+    <!-- ======================= 方法4： 绑定一个返回对象的计算属性。这是一个常用且强大的模式 ======================= -->
+
+
+
+
+    <!-- ======================= 方法5： 数组语法中使用对象语法 ======================= -->
+    <div id="app5">
+        <div :class='[ bold, { red: isRed } ]' @click='app5ClickHandle'>根据条件切换class，所以在数组语法中也可以使用对象语法</div>
+    </div>
+    <script>
+        var vm5 = new Vue({
+            el: '#app5',
+            data: {
+                bold: 'bold',
+                isRed: true
+            },
+            methods: {
+                app5ClickHandle: function(){
+                    this.isRed = !this.isRed
+                }
+            }
+        })
+    </script>
+    <style>
+        .red{ color: red; }
+    </style>
+    <!-- ======================= 方法5： 数组语法中使用对象语法 ======================= -->
+</body>
+</html>
