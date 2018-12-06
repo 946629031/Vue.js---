@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-8 v-for 列表循环</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+    --------------------------------------------------<br>
+    <h3>v-for 列表循环</h3>
+    <div id="app">
+        <div v-for='item of list'>{{item}}</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    'Hello, ',
+                    'Nice',
+                    'to',
+                    'meet',
+                    'you'
+                ]
+            }
+        })
+    </script>
+
+
+--------------------------------------------------<br>
+    <h3>带index的列表循环</h3>
+    <div id="app2">
+        <div v-for='(item, index) of list'>{{item}} --- {{index}}</div>
+    </div>
+    <script>
+        var vm2 = new Vue({
+            el: '#app2',
+            data: {
+                list: [
+                    'Hello, ',
+                    'Nice',
+                    'to',
+                    'meet',
+                    'you'
+                ]
+            }
+        })
+    </script>
+
+
+
+--------------------------------------------------<br>
+    <h3>带key值的的v-for列表循环</h3>
+    <div id="app3">
+        <div v-for='(item, index) of list' :key='index'>{{item}} --- {{index}}</div>
+    </div>
+    <script>
+        var vm3 = new Vue({
+            el: '#app3',
+            data: {
+                list: [
+                    'Hello, ',
+                    'Nice',
+                    'to',
+                    'meet',
+                    'you'
+                ]
+            }
+        })
+    </script>
+
+    <br>
+    总结： 不推荐 :key='index' 绑定index，这样会很损耗性能，可以用 :key='item.id' 或者 :key='Math.random()'<br>
+
+
+
+--------------------------------------------------<br>
+    <h3>:key 的推荐用法 :key='item.id'</h3>
+    <div id="app4">
+        <div v-for='(item, index) of list' :key='item.id'>{{item.text}} --- {{index}}</div>
+    </div>
+    <script>
+        var vm4 = new Vue({
+            el: '#app4',
+            data: {
+                list: [{
+                    id: '13213153',
+                    text: 'hello'
+                },{
+                    id: '13213154',
+                    text: 'Dell'
+                },{
+                    id: '13213155',
+                    text: 'Lee'
+                },{
+                    id: '13213156',
+                    text: 'Nice'
+                },{
+                    id: '13213157',
+                    text: 'to'
+                },{
+                    id: '13213158',
+                    text: 'meet'
+                },{
+                    id: '13213159',
+                    text: 'you'
+                }
+                    
+                ]
+            }
+        })
+    </script>
+
+
+
+--------------------------------------------------<br>
+    <h3>对象的循环 (value, key, index) of object</h3>
+    <div id="app5">
+        <div v-for='(value, key, index) of object'>{{ index }}. {{ key }}: {{ value }}</div>
+    </div>
+    <script>
+        var vm5 = new Vue({
+            el: '#app5',
+            data: {
+                object: {
+                firstName: 'John',
+                lastName: 'Doe',
+                age: 30
+                }
+            }
+        })
+    </script>
+
+    
+--------------------------------------------------<br>
+<h3>修改、更新循环的列表</h3>
+<h3 style="color:red;">1.数组的变异方法 -- 修改数组</h3>
+<h3>2.修改对象的索引（重新赋值）</h3>
+<h3 style="color:red;">3.通过 set 更新对象内容</h3>
+<p>注意：不能通过下标的方式去更新数组或对象</p>
+<p>更多修改方式参考vue官方文档</p>
+
+</body>
+</html>

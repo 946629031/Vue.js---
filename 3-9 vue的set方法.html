@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-9 vue的set方法</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+    ------------------------------------------------<br>
+    <h3>1. 使用Vue.set()方法，向v-for的循环对象里面 动态增加新元素</h3>
+
+    <div id="app">
+        <div v-for='(value, key, index) of object'>{{ value }} - {{key}} - {{index}}</div>
+        <button @click='clickHandle'>Vue.set()方法</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                object: {
+                    firstName: 'Mike',
+                    lastName: 'Lee',
+                    age: 27
+                }
+            },
+            methods: {
+                clickHandle: function(){
+                    Vue.set(vm.object, 'address'+Math.random(), 'beijing'+Math.random())
+                }
+            }
+        })
+    </script>
+
+
+
+
+
+------------------------------------------------<br>
+<h3>2. 删除对象里的元素</h3>
+
+<div id="app2">
+    <div v-for='(value, key, index) of obj'>{{ value }} - {{key}} - {{index}}</div>
+    <button @click='clickHandle'>Vue.delete() 方法</button>
+</div>
+<script>
+    var vm2 = new Vue({
+        el: '#app2',
+        data: {
+            obj: {
+                firstName: 'Mike',
+                lastName: 'Lee',
+                age: 27
+            }
+        },
+        methods: {
+            clickHandle: function(){
+                // delete vm2.obj.age   // js方法
+                Vue.delete(vm2.obj, 'age')  // vue方法
+            }
+        }
+    })
+
+
+    // var obj = {
+    //     bar: 1,
+    //     foo: 2,
+    //     baz: 3
+    // };
+
+    // obj.bar = undefined;
+    // obj.foo = null;
+    // delete obj.baz;
+    
+    // for(var i in obj) {
+    //     if (obj.hasOwnProperty(i)) {
+    //         console.log(i, '' + obj[i]);
+    //     }
+    // }
+</script>
+    
+
+
+
+------------------------------------------------<br>
+<h3>3. 实例的 vm.$set() 方法</h3>
+<p>实例方法与Vue.set()方法 效果一样</p>
+
+<div id="app3">
+    <div v-for='(value, key, index) of object'>{{ value }} - {{key}} - {{index}}</div>
+    <button @click='clickHandle'>实例的 vm.$set() 方法</button>
+</div>
+<script>
+    var vm3 = new Vue({
+        el: '#app3',
+        data: {
+            object: {
+                firstName: 'Mike',
+                lastName: 'Lee',
+                age: 27
+            }
+        },
+        methods: {
+            clickHandle: function(){
+                vm3.$set(vm3.object, 'address'+Math.random(), 'GuangZhou'+Math.random())
+            }
+        }
+    })
+</script>
+
+
+
+
+
+------------------------------------------------<br>
+<h3>4. 数组的 set 方法</h3>
+
+<div id="app4">
+    <div v-for='(value, index) of Array'>{{ value }} - {{index}}</div>
+    <button @click='clickHandle'>数组的 Vue.set() 方法</button>
+    <button @click='clickHandle2'>数组的 实例 vm.$set() 方法</button>
+</div>
+<script>
+    var vm4 = new Vue({
+        el: '#app4',
+        data: {
+            Array: [1,2,3,4,5]
+        },
+        methods: {
+            clickHandle: function(){
+                Vue.set(vm4.Array, 1, 1000)
+            },
+            clickHandle2: function(){
+                vm4.$set(vm4.Array, 4, 999)
+            }
+        }
+    })
+</script>
+</body>
+</html>
