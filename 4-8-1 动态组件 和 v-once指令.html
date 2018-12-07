@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4-8-1 动态组件</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+    <p>
+        实现需求：点击按钮，切换组件 及其组件内容
+    </p>
+
+    <div id="app">
+        <child-one v-if='this.type === "child-one"'></child-one>
+        <child-two v-if='this.type === "child-two"'></child-two>
+        <button @click='clickHandle'>切换组件</button>
+    </div>
+    <script>
+        Vue.component('child-one', {
+            template: '<div>child-one</div>'
+        })
+
+        Vue.component('child-two', {
+            template: '<div>child-two</div>'
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                type: 'child-one'
+            },
+            methods: {
+                clickHandle: function(){
+                    this.type = this.type === 'child-one'?'child-two':'child-one'
+                }
+            }
+        })
+    </script>
+    
+
+
+
+    ---------------------------------------------------------<br>
+    <p>
+        以上的需求，也可以通过更加灵活的方式来实现 -- 动态组件
+    </p>
+
+    <div id="app2">
+        <component :is='type'></component>
+        <button @click='clickHandle2'>点击切换动态组件</button>
+    </div>
+    <script>
+        Vue.component('child-one1',{
+            template: '<div>child-one</div>'
+        })
+        
+        Vue.component('child-two2',{
+            template: '<div>child-two</div>'
+        })
+
+        var vm2 = new Vue({
+            el: '#app2',
+            data: {
+                type: 'child-one1'
+            },
+            methods: {
+                clickHandle2: function(){
+                    this.type = this.type ==='child-one1'?'child-two2':'child-one1'
+                }
+            }
+        })
+    </script>
+
+
+
+    ---------------------------------------------------------<br>
+    <p>
+        v-once指令，当该部分被第一次渲染完成后，就会被放入缓存里，以便下一次使用，从而减少重复渲染，提高性能
+        但是尽量不要使用 v-once 指令，除非你非常留意渲染变慢了。
+    </p>
+
+    <div id="app3">
+        <component :is='type'></component>
+        <button @click='clickHandle2'>点击切换动态组件</button>
+    </div>
+    <script>
+        Vue.component('child-one3',{
+            template: '<div v-once>child-one</div>'     //  此处使用 v-once 指令
+        })
+        
+        Vue.component('child-two4',{
+            template: '<div v-once>child-two</div>'     //  此处使用 v-once 指令
+        })
+
+        var vm3 = new Vue({
+            el: '#app3',
+            data: {
+                type: 'child-one3'
+            },
+            methods: {
+                clickHandle2: function(){
+                    this.type = this.type ==='child-one3'?'child-two4':'child-one3'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

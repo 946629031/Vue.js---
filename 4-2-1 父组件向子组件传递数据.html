@@ -15,21 +15,6 @@
     </div>
 
     <script>
-        // ========== 错误总结 ===========
-        // var counter = {
-        //     props: ['number'],
-        //     template: '<div @click="counterClickHandle">{{number}}</div>',
-        //     methods: {
-        //         counterClickHandle: function(){
-        //             this.number++        // 不能直接修改父组件传过来的参数，因为如果这个参数在复用给别的组件，
-                                            // 参数就被改变了（不是最开始传过来的参数了）
-        //         }
-        //     }
-        // }
-        // ========== 错误总结 ===========
-
-
-
         // 总结：
         // 父组件通过属性的方式，向子组件传值
         // 子组件通过事件触发的方式，向父组件传值
@@ -62,6 +47,22 @@
                 counter: counter
             }
         })
+
+
+        
+        // ========== 错误总结 ===========
+        // var counter = {
+        //     props: ['number'],
+        //     template: '<div @click="counterClickHandle">{{number}}</div>',
+        //     methods: {
+        //         counterClickHandle: function(){
+        //             this.number++        // 不能直接修改父组件传过来的参数，因为如果这个参数在复用给别的组件，
+                                            // 参数就被改变了（不是最开始传过来的参数了）
+        //         }
+        //     }
+        // }
+        // ========== 错误总结 ===========
     </script>
-</body>
+    
+</body>    
 </html>

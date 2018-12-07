@@ -99,6 +99,15 @@
             }
         })
 
+        // 总结：
+        // son为孙子组件，child为儿子组件
+        // 在son的模板template中的slot，v-bind绑定的值，可以向上传递给上一级组件child
+        // 而上一级的组件child，的接收方式为：接收到的参数存在 名为‘props’的插槽作用域下了
+        // 而调用下级传递来的参数方法是：props.item.title 
+
+        // 一言以蔽之：插槽作用域就是 “带数据的插槽”
+        // 从子组件带数据给父组件，然后 父组件控制怎么使用数据
+
         Vue.component('child', {
             data: function(){
                 return {

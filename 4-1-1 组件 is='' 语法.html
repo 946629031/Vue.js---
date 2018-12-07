@@ -8,6 +8,7 @@
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
 </head>
 <body>
+	<h1>组件 is='' 语法</h1>
 
 	<div id="root">
 		<table>
@@ -30,12 +31,38 @@
 		});
 
 		var vm = new Vue({
-			el: '#root',
-			data: {
-				message: 'hello'
-			}
+			el: '#root'
 		})
 	</script>
 	
+
+
+
+
+	---------------------------------------------<br>
+	<h3>存在的问题</h3>
+
+	<div id="app2">
+		<table>
+			<tbody>
+				<rowx></rowx>
+				<rowx></rowx>
+				<rowx></rowx>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		Vue.component('rowx', {
+			template: '<tr><td>This is a rowX</td></tr>'
+		})
+
+		var vm2 = new Vue({
+			el: '#app2',
+		})
+	</script>
+
+	<h4>
+		存在的问题总结：当你用这种方式写的话，渲染后的DOM 子组件的内容却并不在我们所希望的位置，而是到外面去了
+	</h4>
 </body>
 </html>

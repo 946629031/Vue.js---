@@ -8,8 +8,62 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
 </head>
 <body>
+
+
+<p>存在的问题：这个时候，当我给子组件绑定事件的时候，实际上是绑定了一个自定义的事件</p>
+<xmp>
+<wow @click='wowClick'></wow> 当你点击子组件的时候 并不能触发事件
+</xmp>
+
+    <div id="app3">
+        <wow @click='wowClick'></wow>
+    </div>
+    <script>
+        Vue.component('wow', {
+            template: '<div>child</div>'
+        })
+
+        var vm3 = new Vue({
+            el: '#app3',
+            methods: {
+                wowClick: function(){
+                    alert('触发了父组件事件')
+                }
+            }
+        })
+    </script>
+
+
+
+
+----------------------------------------------------<br>
+<p>解决方法1：给子组件绑定事件</p>
+
+    <div id="app4">
+        <wow2></wow2>
+    </div>
+    <script>
+        Vue.component('wow2', {
+            template: '<div @click="cclick">child</div>',
+            methods: {
+                cclick: function(){
+                    alert('这是绑定在子组件上的事件')
+                }
+            }
+        })
+
+        var vm4 = new Vue({
+            el: '#app4'
+        })
+    </script>
+
+
+
+
+----------------------------------------------------<br>
+<p>解决方法2：.native 方法给组件绑定原生事件</p>
+
     <div id="app2">
-            .native 方法给组件绑定原生事件
         <child @click.native='handlClick'></child>
         <!-- <child @click='handlClick'></child>   绑定自定义事件 -->
     </div>
@@ -34,32 +88,36 @@
 
 
 
+
+
+----------------------------------------------------<br>
+<p>解决方法3：.$emit 子组件向上触发方法</p>
+
     <div id="app">
-            .$emit 子组件向上触发方法
-            <child @click='handlClick'></child>
-        </div>
-    
-        <script>
-            Vue.component('child', {
-                template: '<button @click="childClick">点我</button>',   // 对div元素进行事件绑定，这里是原生事件绑定
-                methods: {
-                    childClick: function(){
-                        this.$emit('click')
-                    }
+        <child @click='handlClick'></child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            template: '<button @click="childClick">点我</button>',   // 对div元素进行事件绑定，这里是原生事件绑定
+            methods: {
+                childClick: function(){
+                    this.$emit('click')
                 }
-            })
-    
-            var vm = new Vue({
-                el: '#app',
-                data: {
-                    msg: 'dddddzx'
-                },
-                methods: {
-                    handlClick: function(){
-                        alert('this is from child component msg')
-                    }
+            }
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'dddddzx'
+            },
+            methods: {
+                handlClick: function(){
+                    alert('this is from child component msg')
                 }
-            })
-        </script>
+            }
+        })
+    </script>
 </body>
 </html>
