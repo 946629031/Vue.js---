@@ -1,0 +1,243 @@
+<extend name="Public/base" />
+
+<block name="body">
+    <div class="main-title">
+        <h2>编辑站点</h2>
+    </div>
+
+    <!-- <form action="" enctype="multipart/form-data" method="post">
+        <input type="text" name="name" />
+        <input type="file" name="spic" />
+        <input type="submit" value="提交">
+    </form> -->
+    
+    <form action="{:U()}" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$scenic.id}">
+        <div class="form-item">
+            <label class="item-label">站点名称<span class="check-tips"> 必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="scenic_name" value="{$scenic.scenic_name}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">站点分类<span class="check-tips"> 必填</span></label>
+            <div class="controls">
+                <select name="type">
+                    <volist name='type' id="vo">
+                        <option {$scenic['type']==$vo['id']?selected:''} value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">图片<span class="check-tips"></span></label>
+            <div class="controls">
+                <div id="file_upload"></div>
+                <img style="" id="upload_org_code_img" src="{$scenic.spic}" width="150" height="150">
+                <input id="file_upload_image" name="spic" type="hidden" value="{$scenic.spic}" multiple="true" >
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">网站地址<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="supplier_address" value="{$scenic.supplier_address}">
+            </div>
+        </div>
+        <div>
+            <label class="item-label">线路<span class="check-tips"></span></label>
+            <table class="am-table am-table-bordered am-table-radius am-table-striped">
+                <thead>
+                    <tr>
+                        <th>更多线路</th>
+                        <th width="150px">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="DataContents">
+                    <notempty name="scenic.more_address">
+                        <php> $more_address = explode(',',$scenic[more_address]) </php>
+                        <?php foreach($more_address as $address){ ?>
+                        <tr>
+                            <td><input type="text" name="more_address[]" value="{$address}"></td>
+                            <td style="text-align: center;">
+                                <a onclick="$(this).parents('tr').prev('tr').before($(this).parents('tr'));" class="am-icon-sm am-primary am-icon-arrow-up" href="javascript:;">↑</a>
+                                &nbsp;&nbsp;&nbsp;
+                                <a onclick="$(this).parents('tr').next('tr').after($(this).parents('tr'));" class="am-icon-sm am-primary am-icon-arrow-down" href="javascript:;">↓</a>
+                                &nbsp;&nbsp;&nbsp;
+                                <a onclick="$(this).parents('tr').remove();" class="am-icon-sm am-primary am-icon-times" href="javascript:;">x</a>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </notempty>
+
+                </tbody>
+            </table>
+            <button onclick="$('#DataContents').append(template('DataContent'));" type="button" class="am-btn am-btn-primary am-round am-btn-xs am-icon-plus am-text-right">
+                添加</button>
+        </div>
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <!-- 添加路线 start -->
+    <script src="__JS__/art-template.js" type="text/javascript">
+        /* 模板引擎js */
+    </script>
+    <script type="text/html" id="DataContent">
+        <tr>
+            <td><input type="text" name="more_address[]"></td>
+            <td style="text-align: center;">
+                <a onclick="$(this).parents('tr').prev('tr').before($(this).parents('tr'));" class="am-icon-sm am-primary am-icon-arrow-up" href="javascript:;">↑</a>
+                &nbsp;&nbsp;&nbsp;
+                <a onclick="$(this).parents('tr').next('tr').after($(this).parents('tr'));" class="am-icon-sm am-primary am-icon-arrow-down" href="javascript:;">↓</a>
+                &nbsp;&nbsp;&nbsp;
+                <a onclick="$(this).parents('tr').remove();" class="am-icon-sm am-primary am-icon-times" href="javascript:;">x</a>
+            </td>
+        </tr>
+    </script>
+    <!-- 添加路线 end -->
+
+
+    <script type="text/javascript">
+        // ueditor
+        /* var ue = UE.getEditor('ta');
+        var ue = UE.getEditor('ta1');
+        var ue = UE.getEditor('ta2'); */
+        //导航高亮
+        highlight_subnav('{:U('
+            User / index ')}');
+    </script>
+        <script type="text/javascript">
+            var SCOPE = {
+              'ajax_upload_image_url' : '/index.php?m=admin&c=Ticket&a=imageUpload',
+              'ajax_upload_swf' : '/Public/Admin/js/party/uploadify.swf',
+            };
+            $(function() {
+                $('#file_upload').Huploadify({
+                    auto:true,
+                    fileTypeExts:'*.jpg;*.png',
+                    multi:true,
+                    formData:{pid:'portal',token:'portal',filedesc:''},
+                    fileSizeLimit:9999,
+                    showUploadedPercent:true,//是否实时显示上传的百分比，如20%
+                    showUploadedSize:true,
+                    removeTimeout:9999999,
+                    uploader : SCOPE.ajax_upload_image_url,
+                    onUploadStart:function(){
+                    //alert('开始上传');
+                        $("#file_upload_1-queue").show();
+                    },
+                    onInit:function(){
+                    //alert('初始化');
+                    },
+                    onUploadComplete:function(){
+                    //alert('上传完成');
+                    },
+                    onUploadSuccess: function(file, data, response) {
+                        $("#file_upload_1-queue").hide();
+                        data = JSON.parse(data);
+                        if(data.status == 1) {
+                            var obj = data; //由JSON字符串转换为JSON对象
+                            $('#' + file.id).find('.data').html(' 上传完毕');
+                            $("#upload_org_code_img").attr("src",obj.url);
+                            $("#file_upload_image").attr('value',obj.url);
+                            $("#upload_org_code_img").show();
+                        }else{
+                            alert('上传失败');
+                        }
+                    },
+                    onDelete:function(file){
+                        console.log('删除的文件：'+file);
+                        console.log(file);
+                    }
+                });
+            });
+            /*
+                查找-省、市（id）
+            */
+            function get_address(type,next){
+                var pid = $('#'+type).val();
+                $.ajax({
+                    type:"post",
+                    url:"{:U('/admin/Ticket/find_address')}",
+                    data:{"pid":pid},
+                    ContentType:'text/json;charset=utf-8',
+                    success:function(data) {
+                        var html = "<option value='0'>请选择...</option>";
+                        $.each(data, function (key, value) {
+                            html += "<option value=" + value.id + ">" + value.name + "</option>";
+                        });
+                        $('#'+next).html(html);
+                    }
+                });
+            }
+        </script>
+    <!-- <script type="text/javascript">
+        var SCOPE = {
+          'ajax_upload_image_url' : '/index.php?m=admin&c=Ticket&a=imageUpload',
+          'ajax_upload_swf' : '/Public/Admin/js/party/uploadify.swf',
+        };
+        $(function() {
+            $('#file_upload').Huploadify({
+                auto:true,
+                fileTypeExts:'*.jpg;*.png',
+                multi:true,
+                formData:{pid:'portal',token:'portal',filedesc:''},
+                fileSizeLimit:9999,
+                showUploadedPercent:true,//是否实时显示上传的百分比，如20%
+                showUploadedSize:true,
+                removeTimeout:9999999,
+                uploader : SCOPE.ajax_upload_image_url,
+                onUploadStart:function(){
+                //alert('开始上传');
+                    $("#file_upload_1-queue").show();
+                },
+                onInit:function(){
+                //alert('初始化');
+                },
+                onUploadComplete:function(){
+                //alert('上传完成');
+                },
+                onUploadSuccess: function(file, data, response) {
+                    $("#file_upload_1-queue").hide();
+                    data = JSON.parse(data);
+                    if(data.status == 1) {
+                        var obj = data; //由JSON字符串转换为JSON对象
+                        $('#' + file.id).find('.data').html(' 上传完毕');
+                        $("#upload_org_code_img").attr("src",obj.url);
+                        $("#file_upload_image").attr('value',obj.url);
+                        $("#upload_org_code_img").show();
+                    }else{
+                        alert('上传失败');
+                    }
+                },
+                onDelete:function(file){
+                    console.log('删除的文件：'+file);
+                    console.log(file);
+                }
+            });
+        });
+        /*
+            查找-省、市（id）
+        */
+        function get_address(type,next){
+            var pid = $('#'+type).val();
+            $.ajax({
+                type:"post",
+                url:"{:U('/admin/Ticket/find_address')}",
+                data:{"pid":pid},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    var html = "<option value='0'>请选择...</option>";
+                    $.each(data, function (key, value) {
+                        html += "<option value=" + value.id + ">" + value.name + "</option>";
+                    });
+                    $('#'+next).html(html);
+                }
+            });
+        }
+    </script> -->
+</block>

@@ -1,0 +1,222 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>新增门票</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">选择景区--票付通<span class="check-tips"> 必选</span></label>
+            <div class="controls">
+                <select name="scenicp_id" id="scenicp_id" onchange="get_piao()">
+                    <option value="" selected="selected">请选择景区</option>
+                    <volist name="cup" id="vo">
+                      <option value="{$vo.UUid}">{$vo.UUtitle}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">选择门票--票付通<span class="check-tips"> 必选</span></label>
+            <div class="controls">
+                <select name="pmenpiao" id="menpiao" onchange="get_piao_info()">
+                    <option value="">选择门票</option>
+                    
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">选择景区<span class="check-tips"> 必选</span></label>
+            <div class="controls">
+                <select name="scenic_id">
+                    <option value="" selected="selected">请选择景区</option>
+                    <volist name="sname" id="vo">
+                      <option value="{$vo.id}">{$vo.scenic_name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">产品分类<span class="check-tips"> 必选</span></label>
+            <div class="controls">
+                <select name="cateid">
+                    <option value="" selected="selected">请选择分类</option>
+                    <volist name="rcate" id="vo">
+                      <option value="{$vo.id}"><if condition="$vo.level neq 0 ">|</if><?php echo str_repeat('-',$vo['level']*4); ?> {$vo.c_name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">门票<span class="check-tips">门票名称  必填</span></label>
+            <div class="controls">
+                <input type="text" id="ticket_name" class="text input-large" name="ticket_name" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">上传门票图片<span class="check-tips">  必填</span></label>
+            <div class="controls">
+                <input id="file_upload"  type="file" multiple="true" >
+                <img style="display: none;" id="upload_org_code_img" src="" width="150" height="150">
+                <input id="file_upload_image" name="erweicode" type="hidden" value="" multiple="true" >
+            </div>
+        </div>
+       <!--  <div class="form-item">
+            <label class="item-label">有效期<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="chengben_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">门票类型<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="chengben_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">产品说明<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="chengben_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">取票信息<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="chengben_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">退票规则<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="chengben_price" value="">
+            </div>
+        </div> -->
+        <div class="form-item">
+            <label class="item-label">成本价<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="chengben_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">零售价<span class="check-tips">（选填）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="lingshou_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">一级利润<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="yiji_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">二级利润<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="erji_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">三级利润<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="sanji_price" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">备注<span class="check-tips">（选填）</span></label>
+            <div class="controls">
+                <!-- <input type="text" class="text input-large" name="comment" value=""> -->
+                <textarea style="width: 400px; height: 100px;" name="comment"></textarea>
+            </div>
+        </div>
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('User/index')}');
+    </script>
+    <script type="text/javascript">
+        var SCOPE = {
+          'ajax_upload_image_url' : '/index.php?m=admin&c=Ticket&a=imageUpload',
+          'ajax_upload_swf' : '/Public/Admin/js/party/uploadify.swf',
+        };
+        $(function() {
+            $('#file_upload').uploadify({
+                'swf'      : SCOPE.ajax_upload_swf,
+                'uploader' : SCOPE.ajax_upload_image_url,
+                'buttonText': '上传图片',
+                'formData': { 'session': '<?php echo session_id();?>'}, 
+                'fileTypeDesc': 'Image Files',
+                'fileObjName' : 'file',
+                //允许上传的文件后缀
+                'fileTypeExts': '*.gif; *.jpg; *.png',
+                'onUploadSuccess' : function(file,data,response) {
+                    
+                    if(response) {
+                        var obj = JSON.parse(data); //由JSON字符串转换为JSON对象
+                        console.log(obj);
+                        $('#' + file.id).find('.data').html(' 上传完毕');
+                        $("#upload_org_code_img").attr("src",obj);
+                        $("#file_upload_image").attr('value',obj);
+                        $("#upload_org_code_img").show();
+                    }else{
+                        alert('上传失败');
+                    }
+                },
+            });
+        });
+        /*
+            查找-省、市（id）
+        */
+        function get_address(type,next){
+            var pid = $('#'+type).val();
+            $.ajax({
+                type:"post",
+                url:"{:U('/admin/Ticket/find_address')}",
+                data:{"pid":pid},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    var html = "<option value='0'>请选择...</option>";
+                    $.each(data, function (key, value) {
+                        html += "<option value=" + value.id + ">" + value.name + "</option>";
+                    });
+                    $('#'+next).html(html);
+                }
+            });
+        }
+
+        function get_piao() {
+            var scenicp_id = $('#scenicp_id').val();
+            $.ajax({
+                type:"post",
+                url:"{:U('Ticket/menpiao')}",
+                data:{"scenicp_id":scenicp_id},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    var html = "<option value=''>选择门票</option>";
+                    $.each(data, function (key, value) {
+                        html += "<option value=" + value.UUid + ">" + value.UUtitle + "</option>";
+                    });
+                    $('#menpiao').html(html);
+                }
+            });  
+        }
+        function get_piao_info() {
+            var menpiao = $('#menpiao').val();
+            $.ajax({
+                type:"post",
+                url:"{:U('Ticket/menpiao_info')}",
+                data:{"menpiao":menpiao},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    $('#ticket_name').val(data.UUtitle);
+                }
+            });  
+        }
+    </script>
+</block>

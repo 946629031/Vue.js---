@@ -1,0 +1,106 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>新增站点分类</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+        
+        <div class="form-item">
+            <label class="item-label">分类名<span class="check-tips">必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="name" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('User/index')}');
+    </script>
+    <script type="text/javascript">
+        var SCOPE = {
+          'ajax_upload_image_url' : '/index.php?m=admin&c=Ticket&a=imageUpload',
+          'ajax_upload_swf' : '/Public/Admin/js/party/uploadify.swf',
+        };
+        $(function() {
+            $('#file_upload').uploadify({
+                'swf'      : SCOPE.ajax_upload_swf,
+                'uploader' : SCOPE.ajax_upload_image_url,
+                'buttonText': '上传图片',
+                'formData': { 'session': '<?php echo session_id();?>'}, 
+                'fileTypeDesc': 'Image Files',
+                'fileObjName' : 'file',
+                //允许上传的文件后缀
+                'fileTypeExts': '*.gif; *.jpg; *.png',
+                'onUploadSuccess' : function(file,data,response) {
+                    
+                    if(response) {
+                        var obj = JSON.parse(data); //由JSON字符串转换为JSON对象
+                        console.log(obj);
+                        $('#' + file.id).find('.data').html(' 上传完毕');
+                        $("#upload_org_code_img").attr("src",obj);
+                        $("#file_upload_image").attr('value',obj);
+                        $("#upload_org_code_img").show();
+                    }else{
+                        alert('上传失败');
+                    }
+                },
+            });
+        });
+        /*
+            查找-省、市（id）
+        */
+        function get_address(type,next){
+            var pid = $('#'+type).val();
+            $.ajax({
+                type:"post",
+                url:"{:U('/admin/Ticket/find_address')}",
+                data:{"pid":pid},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    var html = "<option value='0'>请选择...</option>";
+                    $.each(data, function (key, value) {
+                        html += "<option value=" + value.id + ">" + value.name + "</option>";
+                    });
+                    $('#'+next).html(html);
+                }
+            });
+        }
+
+        function get_piao() {
+            var scenicp_id = $('#scenicp_id').val();
+            $.ajax({
+                type:"post",
+                url:"{:U('Ticket/menpiao')}",
+                data:{"scenicp_id":scenicp_id},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    var html = "<option value=''>选择门票</option>";
+                    $.each(data, function (key, value) {
+                        html += "<option value=" + value.UUid + ">" + value.UUtitle + "</option>";
+                    });
+                    $('#menpiao').html(html);
+                }
+            });  
+        }
+        function get_piao_info() {
+            var menpiao = $('#menpiao').val();
+            $.ajax({
+                type:"post",
+                url:"{:U('Ticket/menpiao_info')}",
+                data:{"menpiao":menpiao},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    $('#ticket_name').val(data.UUtitle);
+                }
+            });  
+        }
+    </script>
+</block>

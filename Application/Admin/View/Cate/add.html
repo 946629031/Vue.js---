@@ -1,0 +1,151 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>新增分类</h2>
+    </div>
+    <form action="{:U()}" method="POST" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">广告名称<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="ad_name" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">图片<span class="check-tips">  必填</span></label>
+            <div class="controls">
+                <div id="file_upload"></div>
+                <img style="display: none;" id="upload_org_code_img" src="" width="150" height="150">
+                <input id="file_upload_image" name="img_address" type="hidden" value="" multiple="true" >
+                <!-- <input id="file_upload"  type="file" multiple="true" > -->
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">链接<span class="check-tips"> 必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="ad_href" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">类型<span class="check-tips"> 必填</span></label>
+            <!-- <div class="controls">
+                <input type="text" class="text input-large" name="type" value="">
+            </div> -->
+            <br>
+            <select name="type" id="">
+                <option value="left">左侧广告位</option>
+                <option value="middle">中间广告位</option>
+                <option value="right">右侧广告位</option>
+                <option value="middle_big">中间宽图广告位</option>
+                <option value="middle_top">中间顶部广告位</option>
+            </select>
+        </div>
+        <!-- <input type="submit" value="submit"> -->
+        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+
+
+
+
+
+        <br><br><br><br>
+    </form>
+
+
+
+    <!-- <form action="{:U()}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">选择父分类<span class="check-tips"> 必选</span></label>
+            <div class="controls">
+                <select name="parentid">
+                    <option value="0" selected="selected">顶层分类</option>
+                    <volist name="rcate" id="vo">
+                      <option value="{$vo.id}"><if condition="$vo.level neq 0 ">|</if><?php echo str_repeat('-',$vo['level']*4); ?> {$vo.c_name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">分类名称<span class="check-tips"> 必填</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="c_name" value="">
+            </div>
+        </div>
+
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form> -->
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('User/add')}');
+    </script>
+    <script type="text/javascript">
+        var SCOPE = {
+          'ajax_upload_image_url' : '/index.php?m=admin&c=Ticket&a=imageUpload',
+          'ajax_upload_swf' : '/Public/Admin/js/party/uploadify.swf',
+        };
+        $(function() {
+            $('#file_upload').Huploadify({
+                auto:true,
+                fileTypeExts:'*.jpg;*.png;*.gif;*.jpeg',
+                multi:true,
+                formData:{pid:'portal',token:'portal',filedesc:''},
+                fileSizeLimit:9999,
+                showUploadedPercent:true,//是否实时显示上传的百分比，如20%
+                showUploadedSize:true,
+                removeTimeout:9999999,
+                uploader : SCOPE.ajax_upload_image_url,
+                onUploadStart:function(){
+                //alert('开始上传');
+                    $("#file_upload_1-queue").show();
+                },
+                onInit:function(){
+                //alert('初始化');
+                },
+                onUploadComplete:function(){
+                //alert('上传完成');
+                },
+                onUploadSuccess: function(file, data, response) {
+                    $("#file_upload_1-queue").hide();
+                    data = JSON.parse(data);
+                    if(data.status == 1) {
+                        var obj = data; //由JSON字符串转换为JSON对象
+                        $('#' + file.id).find('.data').html(' 上传完毕');
+                        $("#upload_org_code_img").attr("src",obj.url);
+                        $("#file_upload_image").attr('value',obj.url);
+                        $("#upload_org_code_img").show();
+                    }else{
+                        alert('上传失败');
+                    }
+                },
+                onDelete:function(file){
+                    console.log('删除的文件：'+file);
+                    console.log(file);
+                }
+            });
+        });
+        /*
+            查找-省、市（id）
+        */
+        function get_address(type,next){
+            var pid = $('#'+type).val();
+            $.ajax({
+                type:"post",
+                url:"{:U('/admin/Ticket/find_address')}",
+                data:{"pid":pid},
+                ContentType:'text/json;charset=utf-8',
+                success:function(data) {
+                    var html = "<option value='0'>请选择...</option>";
+                    $.each(data, function (key, value) {
+                        html += "<option value=" + value.id + ">" + value.name + "</option>";
+                    });
+                    $('#'+next).html(html);
+                }
+            });
+        }
+    </script>
+</block>

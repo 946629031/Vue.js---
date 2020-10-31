@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+     <meta content="always" name="referrer">
+
+     <title>{$seo[0].seo_title}</title>
+     <meta name="keywords" content="{$seo[0].seo_keywords}">
+     <meta name="description" content="{$seo[0].seo_description}">
+
+     <script type="text/javascript">
+          urlredirect();
+
+          function urlredirect() {
+               var sUserAgent = navigator.userAgent.toLowerCase();
+               if ((sUserAgent.match(/(ipod|iphone os|midp|ucweb|android|windows ce|windows mobile)/i))) {
+                    // PC跳转移动端
+                    var thisUrl = window.location.href;
+                    window.location.href = thisUrl.substr(0, thisUrl.lastIndexOf('/') + 1) + 'wap';
+
+               }
+          }
+     </script>
+     <link href="/Public/Nav/css/style.css" type="text/css" rel="stylesheet">
+     <!--<script type="text/javascript" src="/skin/jquery.js"></script> -->
+     <script src="/Public/Nav/js/jquery-1.10.2_d88366fd.js"></script>
+     <script type="text/javascript" src="/Public/Nav/js/SuperSlide.js"></script>
+     <script type="text/javascript" src="/Public/Nav/js/jquery.artDialog.min.js"></script>
+     <link href="/Public/Nav/css/aero.css" type="text/css" rel="stylesheet">
+     <script type="text/javascript" src="/Public/Nav/js/feedback.js"></script>
+     <script type="text/javascript" src="/Public/Nav/js/main.js"></script>
+     <script src="/Public/Nav/js/jquery.form.js"></script>
+     <script src="/Public/Nav/js/layer.js"></script>
+     <link rel="stylesheet" href="/Public/Nav/css/layer.css" id="layuicss-skinlayercss">
+
+     
+     <!-- 自定义JS代码 -->
+     <volist name="add_js" id="vo">
+          {$vo.content}
+     </volist>
+     <!-- 自定义JS代码 -->
+     <style></style>
+</head>
+
+<body style="">
+
+<!-- 内容引流项目 start -->
+<volist name="flow" id="vo">
+     <div style="display:none">{$vo.content}</div>
+</volist>
+<!-- 内容引流项目 end -->
+     <div class="bj1">
+          <div class="wp">
+               <div class="logo">
+                    <img src="/Public/Nav/img/200994466.gif" alt="bbin平台大全" width="923" height="134">
+               </div>
+          </div>
+     </div>
+     <div class="bj2">
+          <div class="wp">
+               <div class="pic">
+                    <volist name="ad_middle_big" id="ad_middle_big">
+                         <a href="{$ad_middle_big.ad_href}" rel="nofollow" target="_blank" class="">
+                              <img src="{$ad_middle_big.img_address}" width="460" height="70">
+                         </a>
+                    </volist>
+               </div>
+               <ul class="xun1">
+                    <!-- <script type="text/javascript" src="/Public/Nav/js/f1.js"></script> -->
+                    <volist name="ad_middle" id="ad_middle">
+                         <li><a href="{$ad_middle.ad_href}" target="_blank"><img src="{$ad_middle.img_address}" alt=""></a></li>
+                    </volist>
+                    <!-- <li><a target="_blank"><img src="/Public/Nav/img/120x60.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fyukm8impbg303c01ojso.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRly1fww800dsh7g304g028wfl.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fia54mi6sig303m01o0td.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lYtT0jw1f678ez75u5g304g01oabd.jpg"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lYtT0jw1f5a367h1ovg303m01oab9.jpg"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lYtT0jw1f5r659zpavg304601oaah.jpg"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/120x60(1).gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fwoao3lcq6g304g0280sw.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fwmrp1fpl1g303m01o0sw.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fwtqyiek0dg303m01ojrb.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRjw1fajohrk9thg303m01oglk.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBhEgw1f1vi04vxpdg303m01o777.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fyj8vt0ludg303m01y3zl.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fyx0evzwr9g303m01y3zl.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fwqcxpf4arg303m01oq3j.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fqkataprymg30640280y1.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fwqcohjz3mg303m01o74z.gif"></a></li> -->
+               </ul>
+          </div>
+     </div>
+     <!-- <div class="bj3">
+          <div class="wp">
+               <ul class="xun1">
+                    <script type="text/javascript" src=/Public/Nav/js/f2.js"></script>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fwmqiljemkg303m01on04.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fsl6osmleqg302s02i40o.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fevopb09qag303m01o74f.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fqkataprymg30640280y1.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRjw1fajp6coxiig303m01owec.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lYtT0jw1f5r659zpavg304601oaah.jpg"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fuxgc5v6fqg303m01owg5.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fpw4vomibig304g028dgl.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fpzoaj0y42g303c01ojra.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fize7ociz4g304g0280sp.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fmnndsgzt9g306502b3yj.gif"></a></li>
+                    <li><a target="_blank"><img src="/Public/Nav/img/006lZBMRgy1fwmrp1n3hlg303m01ojrh.gif"></a></li>
+               </ul>
+          </div>
+     </div> -->
+     <div class="bj4">
+          <div class="wp">
+               <span>【网站公告】</span>
+               <div class="tempWrap" style="overflow:hidden; position:relative; height:42px">
+                    <ul style="height: 210px; position: relative; padding: 0px; margin: 0px; top: -126px;">
+                         <li class="clone" style="height: 42px;">BBIN集团会以最快的速度更新博彩公司的最新网址,如果遇到博彩公司网址没办法正常访问,请访问本站易记域名
+                              WWW.0123.com 查找最新网址!</li>
+                         <li style="height: 42px;">bbin平台黑庄曝光：水晶老虎 sjlh12.com sjlh66.com sjlh09.com 摇钱树 130yqs.com
+                              131yqs.com 国际赌场 12e.com 0012e.com</li>
+                         <li style="height: 42px;">監察局提醒：以上公司持有澳門政府頒發博彩執照。通過本站註冊的會員資金由澳門政府監察局保證。【博彩投訴郵箱：bocaitousu@gmail.com】</li>
+                         <li style="height: 42px;">BBIN集团会以最快的速度更新博彩公司的最新网址,如果遇到博彩公司网址没办法正常访问,请访问本站易记域名 WWW.0123.com
+                              查找最新网址!</li>
+                         <li class="clone" style="height: 42px;">bbin平台黑庄曝光：水晶老虎 sjlh12.com sjlh66.com sjlh09.com 摇钱树
+                              130yqs.com 131yqs.com 国际赌场 12e.com 0012e.com</li>
+                    </ul>
+               </div>
+          </div>
+     </div>
+     <div class="bj5">
+          <!-- <div class="wp">
+               <ul>
+                    <li><a>首页</a></li>
+                    <li><a target="_self">上市公司</a></li>
+                    <li><a target="_self">白菜大全</a></li>
+                    <li><a target="_self">热门电子</a></li>
+                    <li><a target="_self">彩票大全</a></li>
+                    <li><a target="_self">其它平台</a></li>
+                    <li><a target="_self">足球推荐</a></li>
+                    <li><a target="_self">博彩论坛</a></li>
+                    <li><a target="_self">举报中心</a></li>
+                    <li><a target="_self">我要举报</a></li>
+                    <li><a target="_blank">现场开奖</a></li>
+               </ul>
+          </div> -->
+     </div>
+     <div class="bj6">
+          <div class="wp">
+               <script type="text/javascript">
+                    function ccc(zt, aid) {
+                         var sgd = 0;
+                         if (zt == "1") {
+                              window.open("/url.php?aid=" + aid + "&sgd=" + sgd);
+                              return true;
+                         }
+
+                         if (zt == "2") {
+                              var r = confirm('您访问的娱乐城尚未通过BBIN平台认证,存在欺诈、假冒等风险,是否继续访问?');
+                              if (r == true) {
+                                   window.open("/url.php?aid=" + aid + "&sgd=" + sgd);
+                                   return true;
+                              }
+                              return false;
+                         }
+
+                         if (zt == "3") {
+                              var r1 = confirm('由于该公司被用户投诉过多,存在欺诈、假冒等风险,是否继续访问?');
+                              if (r1 == true) {
+                                   window.open("/url.php?aid=" + aid + "&sgd=" + sgd);
+                                   return true;
+                              }
+                              return false
+                         }
+                    }
+
+                    function cc(zt, aid, sgd) {
+                         if (zt == "1") {
+                              window.open("/url.php?aid=" + aid + "&sgd=" + sgd);
+                              return true;
+                         }
+
+                         if (zt == "2") {
+                              var r = confirm('您访问的娱乐城尚未通过BBIN平台认证,存在欺诈、假冒等风险,是否继续访问?');
+                              if (r == true) {
+                                   window.open("/url.php?aid=" + aid + "&sgd=" + sgd);
+                                   return true;
+                              }
+                              return false;
+                         }
+
+                         if (zt == "3") {
+                              var r1 = confirm('由于该公司被用户投诉过多,存在欺诈、假冒等风险,是否继续访问?');
+                              if (r1 == true) {
+                                   window.open("/url.php?aid=" + aid + "&sgd=" + sgd);
+                                   return true;
+                              }
+                              return false
+                         }
+                    }
+               </script>
+               <div class="ZiMu">
+                    <h4>按首字母查找：</h4>
+                    <div id="myList-nav">
+                         <form action="{:U('/Home/Ticket/showtype')}" method="GET">
+                              <div class="ln-letters">
+                                   <input class="all ln-selected" name="first_char" value="全部" type="submit">
+                                   <input name="first_char" value="数字" type="submit" class="_">
+                                   <input name="first_char" value="A" type="submit" class="_">
+                                   <input name="first_char" value="B" type="submit" class="_">
+                                   <input name="first_char" value="C" type="submit" class="_">
+                                   <input name="first_char" value="D" type="submit" class="_">
+                                   <input name="first_char" value="E" type="submit" class="_">
+                                   <input name="first_char" value="F" type="submit" class="_">
+                                   <input name="first_char" value="G" type="submit" class="_">
+                                   <input name="first_char" value="H" type="submit" class="_">
+                                   <input name="first_char" value="I" type="submit" class="_">
+                                   <input name="first_char" value="J" type="submit" class="_">
+                                   <input name="first_char" value="K" type="submit" class="_">
+                                   <input name="first_char" value="L" type="submit" class="_">
+                                   <input name="first_char" value="M" type="submit" class="_">
+                                   <input name="first_char" value="N" type="submit" class="_">
+                                   <input name="first_char" value="O" type="submit" class="_">
+                                   <input name="first_char" value="P" type="submit" class="_">
+                                   <input name="first_char" value="Q" type="submit" class="_">
+                                   <input name="first_char" value="R" type="submit" class="_">
+                                   <input name="first_char" value="S" type="submit" class="_">
+                                   <input name="first_char" value="T" type="submit" class="_">
+                                   <input name="first_char" value="U" type="submit" class="_">
+                                   <input name="first_char" value="V" type="submit" class="_">
+                                   <input name="first_char" value="W" type="submit" class="_">
+                                   <input name="first_char" value="X" type="submit" class="_">
+                                   <input name="first_char" value="Y" type="submit" class="_">
+                                   <input name="first_char" value="Z" type="submit" class="_">
+                                   <!-- <a class="- ln-disabled ln-last">...</a> -->
+                              </div>
+                         </form>
+                    </div>
+                    <form class="Searchform" method="get" action="">
+                         <input id="suggest_input" class="text" type="text" name="keyword" value="" placeholder="请输入搜索关键字">
+                         <input class="btn_send" type="submit" value="搜索">
+                    </form>
+               </div>
+
+               <ul class="xun2 nav" id="myList">
+                    <?php foreach($web_list as $key => $val){ ?>
+                    <li><a rel="nofollow" href="{$val['web_address']}" target="_blank">
+                              <!-- <img src="/Public/Nav/img/1741662205.png"> -->
+                              <img src="{$val['web_img']}">
+                              <strong>{$val['web_name']}</strong> </a>
+                              <ul class="submenu" style="display: none;">
+                                   <?php if(!$val['web_more_address']==null){ ?>
+                                   <?php $more_address = explode(',',$val['web_more_address']) ?>
+                                   <?php foreach($more_address as $k => $address){ ?>
+                                   <a href="{$address}" target="_blank">线路{$k+1}</a>
+                                   <?php }} ?>
+                              </ul>
+                    </li>
+                    <?php } ?>
+               </ul>
+               <div class="clear"></div>
+               <div class="c"></div>
+          </div>
+     </div>
+
+     <div class="copy">
+          <div class="wp">
+               <div class="wp">
+                    <p>联系方式QQ：578223388</p>
+                    <p>投訴郵箱：bocaitousu@gmail.com</p>
+                    <p>Copyright 2016 BBIN ALL Rihgt Reserved<script language="javascript" type="text/javascript" src="/Public/Nav/img/f.txt"></script>
+                         <noscript><a target="_blank"><img alt="我要啦免费统计" src=""
+                                        style="border:none" /></a></noscript>
+                    </p>
+                    <p>Copyright 2016 BBIN ALL Rihgt Reserved<script language="javascript" src="/Public/Nav/img/click.aspx"
+                              charset="gb2312"></script>
+                    </p>
+               </div>
+          </div>
+     </div>
+     <div class="fdrmenu">
+          <a target="_blank">
+               <div class="btn btn-qq">
+                    <div class="ui_qq">
+                         <p>QQ:</p>
+                         578223388
+                    </div>
+               </div>
+          </a>
+          <a target="_blank">
+               <div class="btn btn-wx">
+                    <img class="p" src="/Public/Nav/img/weixin.jpg">
+               </div>
+          </a>
+          <div class="btn btn-top" style="display: none;"></div>
+     </div>
+     <div class="msg_win">
+          <div class="msg_title">
+               <a class="msg_close" title="关闭" href="javascript:void:(0)">x</a>
+               <a class="msg_min" title="最小化" href="javascript:void(0)">0</a>备用网址</div>
+          <div class="msg_content">
+               <p>本站永久域名 <em>www.0123.com</em></p>
+               <p><span>备用网址</span><em>www.444000.com</em></p>
+               <p><span>备用网址</span><em>www.444000.com </em></p>
+          </div>
+     </div>
+
+     <div class="fdleft">
+          <volist name="ad_left" id="ad_left">
+               <a href="{$ad_left.ad_href}" rel="nofollow" target="_blank">
+                    <img src="{$ad_left.img_address}" width="100" height="100" style="margin-top:10px">
+               </a>
+          </volist>
+     </div>
+
+     <div class="fdright">
+          <volist name="ad_right" id="ad_right">
+               <a href="{$ad_right.ad_href}" rel="nofollow" target="_blank">
+                    <img src="{$ad_right.img_address}" width="100" height="285" style="margin-top:10px">
+               </a>
+          </volist>
+     </div>
+
+     <div class="web_pagePos">
+          <div class="pageForm">
+               <div class="pageFormList">
+                    <form method="post" class="form" action="" enctype="multipart/form-data" id="cform">
+                         <ul>
+                              <li><span class="select_span"><span class="select">请选择意见反馈类型</span>
+                                        <span class="option">
+                                             <a class="optionA" onclick="setFeedbackType(1);">网站优化建议</a>
+                                             <a class="optionA" onclick="setFeedbackType(2);">提交未收录网站</a>
+                                             <a class="optionA" onclick="setFeedbackType(3);">其他相关问题</a>
+                                        </span>
+                                   </span>
+                                   <input type="hidden" id="leixing" name="leixing" value="">
+                              </li>
+                              <li>
+                                   <textarea name="cbody" id="postContent" class="textarea" maxlength="500">您的反馈内容</textarea>
+                              </li>
+                              <li>
+                                   <input name="contact" value="您的联系方式(QQ、手机或邮箱)" type="text" class="input">
+                              </li>
+                              <li style="padding: 0;">
+                                   <input name="" value="提交" type="submit" class="submit" id="lBtn">
+                              </li>
+                         </ul>
+                    </form>
+               </div>
+          </div>
+
+          <div class="pagePen"></div>
+          <div class="pageFanY pageFanSmall" title="用户反馈"></div>
+          <div class="pageFanBg pageBgSmall" title="用户反馈"></div>
+     </div>
+     <style type="text/css">
+          .layui-layer-dialog .layui-layer-padding {
+               color: #333;
+          }
+     </style>
+     <script>
+          //为反馈类型赋值
+          function lx(type) {
+               $("#feedbacktype").val(type);
+          }
+          var $btn = $("#lBtn");
+          $("#cform").ajaxForm({
+               type: 'post', // 提交方式 get/post
+               url: '/liu.html', // 需要提交的 url
+               data: $("form").serialize(),
+               dataType: "json",
+               success: function (data) { // data 保存提交后返回的数据，一般为 json 数据
+                    if (data.code == '0') {
+                         layer.alert(data.msg, {
+                              icon: 5
+                         });
+                    } else {
+                         layer.alert(data.msg, {
+                              icon: 6
+                         });
+                         setTimeout(function () {
+                              window.location.href = "/";
+                         }, 800)
+                    }
+               }
+          });
+     </script>
+
+
+</body>
+
+</html>

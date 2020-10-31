@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <link rel="stylesheet" href="./css/animate.css">
+</head>
+<body>
+
+    注意：使用 animate.css 有两个要求： <br>
+        1. 要使用 自定义class <br>
+        2. 要在 class上加上 "animated", 然后再加上需要的动画名 <br><hr>
+    <div id="root">
+        <transition
+          enter-active-class='animated swing'
+          leave-active-class='animated shake'
+        >
+            <div v-show='show'>hello world</div>
+        </transition>
+        <button @click='clickHandle'>toggle</button>
+    </div>
+    <script>
+        var root = new Vue({
+            el: '#root',
+            data: {
+                show: true
+            },
+            methods: {
+                clickHandle: function(){
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

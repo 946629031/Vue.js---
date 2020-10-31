@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        @keyframes bounce-in{
+            0%{
+                transform: scale(0);
+            }
+            50%{
+                transform: scale(1.5);
+            }
+            100%{
+                transform: scale(0);
+            }
+        }
+
+        .fade-in-self{
+            transform-origin: left center;
+            animation: bounce-in 1s;
+        }
+        .fade-leave-self{
+            transform-origin: left center;
+            animation: bounce-in 1s;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root">
+        <transition name='fade'
+         enter-active-class="fade-in-self"
+         leave-active-class="fade-leave-self"
+        >
+            <div v-show='show'>hello world</div>
+        </transition>
+        <button @click="clickHandle">提交</button>
+    </div>
+    <script>
+        var root = new Vue({
+            el: '#root',
+            data: {
+                show: true
+            },
+            methods: {
+                clickHandle: function(){
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

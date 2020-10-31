@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>5-1 vue css动画原理</title>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+</head>
+<body>
+
+        <div id="app">
+            <button @click='clickHandle'>toggle</button>
+            <transition name='fade'>
+                <div v-if='show'>hello world</div>
+            </transition>
+        </div>
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    show: true
+                },
+                methods: {
+                    clickHandle: function(){
+                        this.show = !this.show
+                    }
+                }
+            })
+        </script>
+        <style>
+            .fade-enter{
+                opacity: 0;
+            }
+            .fade-enter-active{
+                transition: opacity 4s;
+            }
+            .fade-leave-to{
+                opacity: 0;
+            }
+            .fade-leave-active{
+                transition: opacity 1s;
+            }
+        </style>
+
+----------------------------------------------------------<br>
+
+    <div id="app1">
+        <button @click='clickHandle'>toggle</button>
+        <transition name='hidden'>
+            <div v-if='show'>hello world</div>
+        </transition>
+    </div>
+    <style>
+        .hidden-enter-to{
+            opacity: 0;
+        }
+        .hidden-enter-active{
+            transition: opacity 4s;
+        }
+    </style>
+    <script>
+        var vm1 = new Vue({
+            el: '#app1',
+            data: {
+                show: true
+            },
+            methods: {
+                clickHandle: function(){
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+
+    <xmp>
+        .fade-enter-to{
+            opacity: 0;
+        }
+        .fade-enter-active{
+            transition: opacity 4s;
+        }
+
+        如果用这种方法来写进入动画，则进入动画会出现 “闪烁” 效果，而这种效果却并不是我们所期望的
+        原因在于：动画过程为：
+            动画开始前 opacity: 1; 
+            第二帧开始 opacity: 0; 
+            而且这个从 opacity: 1; 到 opacity: 0; 的动画时间过程为 4s
+            最后，因为这是一个进入动画，所以在动画执行结束后 opacity 不得不为 1
+            所以，这种方法来写进入动画，就会出现 “闪烁” 效果
+    </xmp>
+<!-- ----------------------------------------------------------<br>
+    官方示例
+
+    <div id="demo">
+        <button v-on:click="show = !show">
+            Toggle
+        </button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+    <script>
+        var demo = new Vue({
+            el: '#demo',
+            data: {
+                show: true
+            }
+        })
+    </script>
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s;
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+            opacity: 0;
+        }
+    </style> -->
+    
+</body>
+</html>

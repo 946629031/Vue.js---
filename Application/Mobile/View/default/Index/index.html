@@ -1,0 +1,75 @@
+
+<include file="Public/head" />
+	<body>
+		<div class="serch">
+			<div class="adress">临沂
+				<i class="icon-u-regular icon-unfold down"></i>
+				<input type="text" value="" name="" placeholder="想去哪玩儿" /><span class="glyphicon glyphicon-search"></span>
+			</div>
+		</div>
+		<!--banner-->
+		<div class="banner">
+			<a href="javascript:void(0);">
+				<img src="__IMG__/banner.png" />
+			</a>
+		</div>
+		<!--banner-->
+		<!--中间内容-->
+		<div class="content">
+			<div class="list-bg">
+				<div class="bg-padding">
+					<div class="list-aside">
+						<a href="javascript:void(0);">
+							<i class="color">
+								<img src="__IMG__/icon_01.png" />
+							</i>
+							<span>限时抢购</span>
+						</a>
+					</div>
+					<div class="list-aside">
+						<a href="javascript:void(0);">
+							<i class="color_cover">
+								<img src="__IMG__/icon_02.png" />
+							</i>
+							<span>热门景点 </span>
+						</a>
+					</div>
+					<div class="list-aside">
+						<a href="javascript:void(0);">
+							<i class="color_covert">
+								<img src="__IMG__/icon_03.png" />
+							</i>
+							<span>景区热点</span>
+					</div>
+					<div class="list-aside">
+						<a href="javascript:void(0);">
+							<i class="color_coverth">
+								<img src="__IMG__/icon_04.png" />
+							</i>
+							<span>演出票务</span>
+						</a>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="active">
+				<a href="javascript:void(0);">
+					<img src="__IMG__/active_bg.png" />
+				</a>
+			</div>
+			<volist name="scenicInfo" id="vo">
+			<div class="ticket_top">
+				<a href="{:U('detail/index?tid='.$vo['id'])}"><img src="{$vo.spic}" /></a> 
+				<div class="ticket_po">
+					<div>
+						<span>{$vo.scenic_name}</span>
+						<!-- <span class="ticket_right text">￥96.00</span> -->
+						<span class="ticket_right se">￥{$vo.lingshou_price}</span>
+					</div>
+				</div>
+			</div>
+			</volist>
+		</div>
+		<!--中间内容-->
+<include file="Public/footer" />
+		

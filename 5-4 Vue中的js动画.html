@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>5-4 Vue中的js动画</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+
+    <div id="root">
+        <transition
+          @before-enter='handleBeforeEnter' 
+          @enter='handleEnter'
+          @after-enter='handleAfterEnter'
+        >
+            <div v-show='show'>hello world</div>
+        </transition>
+        <button @click='show = !show'>toggle</button>
+    </div>
+    <script>
+        var root = new Vue({
+            el: '#root',
+            data: {
+                show: true
+            },
+            methods:{
+                handleBeforeEnter: function(el){
+                    el.style.color = 'red'
+                },
+                handleEnter: function(el, done){
+                    setTimeout(() => {
+                        el.style.color = 'green'
+                    },2000)
+
+                    setTimeout(() => {
+                        done()
+                    },4000)
+                },
+                handleAfterEnter: function(el){
+                    console.log(123);
+                    el.style.color = 'black'
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
